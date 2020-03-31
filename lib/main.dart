@@ -66,6 +66,43 @@ class _HomeState extends State<Home> {
     }
   }
 
+  void _showDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Colors.deepPurple,
+          title: Text(
+            "Informações",
+            textAlign: TextAlign.center,
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          ),
+          content: Text(
+              "     O índice de massa corporal (IMC) é uma medida"
+              " usada para calcular se uma pessoa está em seu peso ideal.\n\n"
+              "     Classificação:\n"
+              "* Abaixo de 18,49 - Abaixo do peso\n"
+              "* De 18,50 à 24,99 - Peso normal\n"
+              "* De 25 à 29,99 - Acima do peso\n"
+              "* De 30 à 34,99 - Obesidade I\n"
+              "* De 35 à 39,99 - Obesidade II (severa)\n"
+              "* Acima de 40 - Obesidade III (mórbida)",
+              style: TextStyle(color: Colors.white)),
+          actions: <Widget>[
+            Container(
+              height: 50,
+              width: 100,
+              child: RaisedButton(
+                  color: Colors.white,
+                  child: Text("Sair", style: TextStyle(color: Colors.deepPurple, fontSize: 20)),
+                  onPressed: () => Navigator.of(context).pop()),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -74,6 +111,7 @@ class _HomeState extends State<Home> {
           title: Text("Calculadora de IMC"),
           backgroundColor: Colors.deepPurple,
           actions: <Widget>[
+            IconButton(icon: Icon(Icons.info_outline), onPressed: _showDialog),
             IconButton(icon: Icon(Icons.refresh), onPressed: _refresh)
           ],
         ),
@@ -109,7 +147,7 @@ class _HomeState extends State<Home> {
                   Padding(
                     padding: EdgeInsets.only(bottom: 20, top: 10),
                     child: Container(
-                      height: 50,
+                      height: 60,
                       child: RaisedButton(
                         onPressed: () {
                           if (_keyForm.currentState.validate()) {
